@@ -1,6 +1,7 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const fs = require('fs')
+const getHeading = require('./data/heading')
 const colors = require('./colors.json')
 const {prefix, token}= require('./botconfig.json')
 client.commands = new Discord.Collection()
@@ -13,6 +14,8 @@ for(const file of commandFiles){
 client.once('ready', async()=>{
     console.log("Duck Hero is ready to roll!")
     client.user.setActivity("over you",{type:"WATCHING"})
+    let newsList = getHeading()
+    module.exports = newsList
 })
 
 client.on('message', async message=>{

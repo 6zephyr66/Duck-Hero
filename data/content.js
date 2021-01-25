@@ -1,14 +1,16 @@
-module.exports.getContent = function getContent(link){
-    const axios = require('axios')
-    const cheerio = require('cheerio')
-    let finalResult = []
-    axios.get(link).then(res=>{
-        const $ = cheerio.load(res.data)
-        $('p').each((index, element)=>{
-            finalResult[index] = $(element).text()
+module.exports= function getContent(link){
+    return new Promise(function(resolve, reject){
+        const cheerio = require('cheerio')
+        let finalResult = []
+        const axios = require('axios')
+        axios.get(link).then(res=>{
+            const $ = cheerio.load(res.data)
+            $('p').each((index, element)=>{
+                finalResult[index] = $(element).text()
+            })
+            resolve(finalResult)
+            reject(new Error("Something's wrong"))
         })
-        console.log(finalResult);
+        .catch(err=> console.error(err))
     })
-    .catch(err=> console.error(err))
-    return Promise.resolve(finalResult)
 }

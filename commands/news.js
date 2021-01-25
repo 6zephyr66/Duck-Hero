@@ -7,11 +7,12 @@ module.exports={
     async execute(message, args, color){
             let newsList = require('../main')
             const getContent = require('../data/content')
-            getContent.getContent(newsList[args].link).then(content=>{
+            getContent(newsList[args].link).then(content=>{
+                console.log("Message sent")
                 message.reply({
                     embed:{
                         "title": newsList[args].name,
-                        "description":`${content[0]}`,
+                        "description":`${content[1]}`,
                         "color":color,
                         "image":{
                             "url":`${newsList[args].img}`
@@ -23,6 +24,6 @@ module.exports={
                     // console.log(getContent(newsList[args].link));
                 })
             })
-            
+            .catch(err=>console.error(err))
     }
 }

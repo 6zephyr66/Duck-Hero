@@ -3,7 +3,7 @@ const client = new Discord.Client()
 const fs = require('fs')
 const getHeading = require('./data/heading')
 const colors = require('./colors.json')
-const {prefix, token}= require('./botconfig.json')
+const {prefix, token, welcome_channel}= require('./botconfig.json')
 client.commands = new Discord.Collection()
 
 const commandFiles = fs.readdirSync(`./commands/`)
@@ -16,6 +16,7 @@ client.once('ready', async()=>{
     client.user.setActivity("over you",{type:"WATCHING"})
     let newsList = getHeading()
     module.exports = newsList
+    client.channels.cache.get(welcome_channel).send("Don't worry little ones, I'm Here Now🦆💪🏻")
 })
 
 client.on('message', async message=>{
